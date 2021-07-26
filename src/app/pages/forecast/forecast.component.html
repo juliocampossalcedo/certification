@@ -1,0 +1,18 @@
+<h4>Template for 5-day forecast page:</h4>
+<div class="container-fluid">
+  <div class="card mb-3">
+    <div class="card-header">
+      <h3 class="card-title">5-day forecast for {{city}}</h3>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let forecast of forecasts">
+        {{forecast.dt_txt | date: 'EEEE, MMM d'}}: {{forecast.weather[0].main}} - Min: {{forecast.main.temp_min}} - Max: {{forecast.main.temp_max}}
+        <img class="icon" src={{forecast.imgLink}} />
+      </li>
+    </ul>
+  </div>
+  <button class="btn btn-success" tabindex="0" id="mainPageBtn" routerLink="/home">
+    &lt; Back to main page
+  </button>
+</div>
+<app-spinner *ngIf="isLoading"></app-spinner>

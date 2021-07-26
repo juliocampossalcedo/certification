@@ -1,0 +1,50 @@
+<h4>Template for main page:</h4>
+<div class="container-fluid">
+  <div class="card card-body bg-light mb-3">
+    <form [formGroup]="controlForm" (ngSubmit)="listZipCode()">
+      <h2>Enter a zipcode:</h2>
+      <input
+        class="form-control mb-2"
+        placeholder="Zipcode"
+        type="text"
+        id="addLocation"
+        formControlName="zipCode"
+      />
+      <span
+        *ngIf="
+          controlForm.controls.zipCode.invalid &&
+          controlForm.controls.zipCode.dirty
+        "
+        class="alert-danger"
+      >
+        Format invalid for Zipcode, ejample: 12345
+      </span>
+      <br />
+      <button
+        class="btn btn-primary mt-2"
+        id="addLocationBtn"
+        [disabled]="controlForm.invalid"
+      >
+        Add location
+      </button>
+    </form>
+  </div>
+  <div>
+    <div *ngFor="let weather of weathers" class="card card-body bg-light flex flex-row">
+      <div>
+        <h3>{{weather.name}} ({{weather.zipCode}})</h3>
+        <h4>Current conditions: {{weather.weather[0].main}}</h4>
+        <h4>Temperatures today:</h4>
+        <p>Current {{weather.main.temp}} - Max {{weather.main.temp_max}} - Min {{weather.main.temp_min}}</p>
+        <p>
+          <button (click)="goForecast(weather.zipCode)">Show 5-day forecast for {{weather.name}}</button>
+        </p>
+      </div>
+      <div>
+        <span class="close" (click)="removeWeather(weather.zipCode)">×</span>
+        <img src={{weather.imgLink}} />
+      </div>
+    </div>
+  </div>
+</div>
+<app-spinner *ngIf="isLoading"></app-spinner>
